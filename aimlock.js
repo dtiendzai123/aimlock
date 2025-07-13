@@ -55,8 +55,8 @@ class AimLockEngine {
     const recoil = this.config.recoil[weapon] || { x: 0, y: 0 };
     this.recoilAccumulated.x += recoil.x;
     this.recoilAccumulated.y += recoil.y;
-    this.recoilAccumulated.x *= 0.85;
-    this.recoilAccumulated.y *= 0.85;
+    this.recoilAccumulated.x *= 0.0;
+    this.recoilAccumulated.y *= 0.0;
     return { x: -this.recoilAccumulated.x, y: -this.recoilAccumulated.y };
   }
 
@@ -161,7 +161,7 @@ class AimLockEngine {
 // == Config ==
 const aimLockConfig = {
   bindposeOffset: { x: -0.0456970781, y: -0.004478302, z: -0.0200432576 },
-  snap_radius: 0.09,
+  snap_radius: 360.0,
   recoil: {
     mp40: { x: 0.02, y: 0.015 },
     m1887: { x: 0.03, y: 0.02 },
@@ -206,14 +206,14 @@ function getLocalPlayer() {
     x: 0, y: 1.7, z: 0,
     camera: {
       position: { x: 0, y: 1.7, z: 0 },
-      target: { x: 0, y: 1.7, z: 1 }
+      target: { x: -0.0456970781, y: -0.004478302, z: -0.0200432576 }
     },
     cameraYaw: 0
   };
 }
 function getEnemies() {
   return [{
-    health: 100,
+    health: 500,
     armorLevel: 2,
     velocity: new Vector3(0, 0, -0.05),
     x: 2.0, y: 1.7, z: 5.0,
