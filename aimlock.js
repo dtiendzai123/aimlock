@@ -160,7 +160,7 @@ class AimLockEngine {
 
 // == Config ==
 const aimLockConfig = {
-  bindposeOffset: { x: -0.0456970781, y: -0.004478302, z: -0.0200432576 },
+  headOffset: { x: -0.04089227, y: 0.00907892, z: 0.02748467 },
   snap_radius: 360.0,
   recoil: {
     mp40: { x: 0.02, y: 0.015 },
