@@ -157,7 +157,10 @@ class AimLockEngine {
     }
   }
 }
-
+const GamePackages = {
+  GamePackage1: "com.dts.freefireth",
+  GamePackage2: "com.dts.freefiremax"
+};
 // == Config ==
 const aimLockConfig = {
   headOffset: { x: -0.04089227, y: 0.00907892, z: 0.02748467 },
