@@ -125,28 +125,42 @@ class AimLockEngine {
     }
   }
 
-  smartSelect(localPlayer, enemies, fovDeg = 60) {
-    let best = null;
-    let bestScore = Infinity;
-    const offset = this.config.bindposeOffset;
-    for (const e of enemies) {
-      if (e.health <= 0) continue;
-      const head = new Vector3(e.x + offset.x, e.y + offset.y, e.z + offset.z);
-      const dx = head.x - localPlayer.x;
-      const dz = head.z - localPlayer.z;
-      const yaw = Math.atan2(dx, dz);
-      const yawDiff = Math.abs(yaw - localPlayer.cameraYaw);
-      if (yawDiff > fovDeg * (Math.PI / 180)) continue;
-      const dist = Math.sqrt(dx * dx + (head.y - localPlayer.y) ** 2 + dz * dz);
-      const score = dist + yawDiff * 15;
-      if (score < bestScore) {
-        bestScore = score;
-        best = { ...e, head };
-      }
+smartSelect(localPlayer, enemies, fovDeg = 180) {
+  const offset = this.config?.headOffset || new Vector3(-0.04089227, 0.00907892, 0.02748467); // fallback nếu chưa cấu hình
+
+  let best = null;
+  let bestScore = Infinity;
+
+  for (const enemy of enemies) {
+    if (!enemy || enemy.health <= 0) continue;
+
+    // Tính vị trí bone head
+    const head = new Vector3(
+      enemy.x + offset.x,
+      enemy.y + offset.y,
+      enemy.z + offset.z
+    );
+
+    const dx = head.x - localPlayer.x;
+    const dy = head.y - localPlayer.y;
+    const dz = head.z - localPlayer.z;
+
+    const yaw = Math.atan2(dx, dz);
+    const yawDiff = Math.abs(yaw - localPlayer.cameraYaw);
+
+    if (yawDiff > fovDeg * (Math.PI / 180)) continue;
+
+    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    const score = dist + yawDiff * 15;
+
+    if (score < bestScore) {
+      bestScore = score;
+      best = { ...enemy, head };
     }
-    return best;
   }
 
+  return best;
+}
   update(localPlayer, enemies, weapon) {
     const target = this.smartSelect(localPlayer, enemies);
     if (!target) return;
@@ -157,6 +171,10 @@ class AimLockEngine {
     }
   }
 }
+this.config = {
+  headOffset: new Vector3(-0.04089227, 0.00907892, 0.02748467), // offset từ chân đến đầu, điều chỉnh tùy game
+  // các cấu hình khác...
+};
 const GamePackages = {
   GamePackage1: "com.dts.freefireth",
   GamePackage2: "com.dts.freefiremax"
