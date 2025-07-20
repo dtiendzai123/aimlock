@@ -196,6 +196,7 @@ for (const enemy of enemies) {
   enemy.velocity = newHead.subtract(prevHead).multiplyScalar(1 / deltaTime);
   previousHeadMap.set(enemy, newHead);
 }
+let previousHeadMap = new Map(); // Map<enemyID, Vector3>
 // == Init System ==
 let aimLockEngine = null;
 function initAimLock() {
@@ -237,7 +238,7 @@ function getEnemies() {
     }
   }];
 }
-let previousHeadMap = new Map(); // Map<enemyID, Vector3>
+
 function getCurrentWeapon() {
   // Bạn có thể cập nhật từ API game thật hoặc điều kiện người dùng
   return "m1887";
