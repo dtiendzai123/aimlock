@@ -188,23 +188,26 @@ const aimLockConfig = {
     mac10: { yaw: 0.5, pitch: 0.47 }
   }
 };
-// === Cập nhật velocity từ head movement ===
-for (const enemy of enemies) {
-  const prevHead = previousHeadMap.get(enemy) || enemy.head();
-  const newHead = enemy.head.clone();
-  const deltaTime = 0.016; // 60 FPS giả định
-  enemy.velocity = newHead.subtract(prevHead).multiplyScalar(1 / deltaTime);
-  previousHeadMap.set(enemy, newHead);
+let previousHeadMap = new Map();
+
+function updateEnemyVelocities(enemies) {
+  const deltaTime = 0.016;
+  for (const enemy of enemies) {
+    const id = `${enemy.x.toFixed(3)}_${enemy.y.toFixed(3)}_${enemy.z.toFixed(3)}`;
+    const prevHead = previousHeadMap.get(id) || enemy.head.clone();
+    const newHead = enemy.head.clone();
+    enemy.velocity = newHead.subtract(prevHead).multiplyScalar(1 / deltaTime);
+    previousHeadMap.set(id, newHead.clone());
+  }
 }
-let previousHeadMap = new Map(); // Map<enemyID, Vector3>
+
 // == Init System ==
-let aimLockEngine = null;
 function initAimLock() {
   aimLockEngine = new AimLockEngine(aimLockConfig);
   setInterval(() => {
     const localPlayer = getLocalPlayer();
     const enemies = getEnemies();
- const target = this.smartSelect(localPlayer, enemies);   
+    updateEnemyVelocities(enemies); // 🆕 Cập nhật velocity mỗi frame
     const currentWeapon = getCurrentWeapon();
     if (aimLockEngine && localPlayer && enemies?.length > 0) {
       aimLockEngine.update(localPlayer, enemies, currentWeapon);
