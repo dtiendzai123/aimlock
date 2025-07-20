@@ -188,7 +188,14 @@ const aimLockConfig = {
     mac10: { yaw: 0.5, pitch: 0.47 }
   }
 };
-
+// === Cập nhật velocity từ head movement ===
+for (const enemy of enemies) {
+  const prevHead = previousHeadMap.get(enemy) || enemy.head();
+  const newHead = enemy.head.clone();
+  const deltaTime = 0.016; // 60 FPS giả định
+  enemy.velocity = newHead.subtract(prevHead).multiplyScalar(1 / deltaTime);
+  previousHeadMap.set(enemy, newHead);
+}
 // == Init System ==
 let aimLockEngine = null;
 function initAimLock() {
@@ -196,6 +203,7 @@ function initAimLock() {
   setInterval(() => {
     const localPlayer = getLocalPlayer();
     const enemies = getEnemies();
+ const target = this.smartSelect(localPlayer, enemies);   
     const currentWeapon = getCurrentWeapon();
     if (aimLockEngine && localPlayer && enemies?.length > 0) {
       aimLockEngine.update(localPlayer, enemies, currentWeapon);
@@ -218,9 +226,9 @@ function getEnemies() {
   return [{
     health: 500,
     armorLevel: 2,
-    velocity: new Vector3(0, 0, -0.05),
     x: 2.0, y: 1.7, z: 5.0,
     head: new Vector3(-0.0456970781, -0.004478302, -0.0200432576),
+    velocity: Vector3.zero(), // sẽ được cập nhật tự động
     bindpose: {
       e00: -1.34559613E-13, e01: 8.881784E-14, e02: -1.0, e03: 0.487912,
       e10: -2.84512817E-06, e11: -1.0, e12: 8.881784E-14, e13: -2.842171E-14,
@@ -229,6 +237,7 @@ function getEnemies() {
     }
   }];
 }
+let previousHeadMap = new Map(); // Map<enemyID, Vector3>
 function getCurrentWeapon() {
   // Bạn có thể cập nhật từ API game thật hoặc điều kiện người dùng
   return "m1887";
