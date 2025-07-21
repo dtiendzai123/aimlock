@@ -195,13 +195,13 @@ const aimLockConfig = {
     default: { x: 0, y: 0 }
   },
   weapon_gain: {
-    default: { yaw: 0.5, pitch: 0.48 },
-    m1887: { yaw: 0.52, pitch: 0.49 },
+    default: { yaw: 5.0, pitch: 5.0 },
+    m1887: { yaw: 5.0, pitch: 5.0 },
     mp40: { yaw: 0.53, pitch: 0.5 },
     awm: { yaw: 0.4, pitch: 0.4 },
     ak: { yaw: 0.6, pitch: 0.52 },
-    ump: { yaw: 0.51, pitch: 0.48 },
-    m1014: { yaw: 0.55, pitch: 0.5 },
+    ump: { yaw: 5.0, pitch: 5.0 },
+    m1014: { yaw: 5.0, pitch: 5.0 },
     m590: { yaw: 0.54, pitch: 0.5 },
     mac10: { yaw: 0.5, pitch: 0.47 }
   }
