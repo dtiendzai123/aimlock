@@ -230,7 +230,7 @@ function initAimLock() {
     if (aimLockEngine && localPlayer && enemies?.length > 0) {
       aimLockEngine.update(localPlayer, enemies, currentWeapon);
     }
-  }, 16);
+  }, 8);
 }
 
 // == Mocks for Shadowrocket or simulation ==
