@@ -205,7 +205,68 @@ const aimLockConfig = {
     m590: { yaw: 0.54, pitch: 0.5 },
     mac10: { yaw: 0.5, pitch: 0.47 }
   }
+advancedFeatures: {
+    QuickScopeReactionTime: 1,
+    RealTimeMovementAimSync: 1,
+    SmartTapFireOptimization: 1,
+    LowDragFlickMode: 1,
+    FeatherTouchAimingSystem: 1,
+    AutoFocusTargetAssist: 1,
+    DynamicAimFlowControl: 1,
+    FastAimLockOnAssist: 1,
+    MinimalWeightAimTuning: 1,
+    QuickLightAimReset: 1,
+
+    PrecisionAimLock: 2,
+    VerticalAimFix: 1,
+    HorizontalAimFix: 1,
+    SmoothGripControl: 2,
+    DragStabilityBalancer: 2,
+    GripSensitivityTuning: 2,
+    AutoAimFix: 1,
+    DragSpeedAdjuster: 2,
+    DragControlLimiter: 1,
+    TouchGripResponse: 2,
+    DynamicGripReset: 2,
+
+    AutoCenteringFix: 2,
+    RealTimeAimLock: 2,
+    VerticalDragLimiter: 2,
+    HorizontalDragLimiter: 2,
+    HeadSnapLimiter: 1,
+    DragPrecisionTuner: 2,
+    GripCorrectionEnhancer: 2,
+    NoExcessiveGrip: 2,
+    BalancedDragControl: 2,
+    RealTimePrecisionSync: 2,
+
+    ZeroLateralMovement: 1,
+    ZeroVerticalDrift: 1,
+    NoAimSnapFixer: 2,
+    TouchSensitivityLock: 2,
+    DragReductionOptimizer: 2,
+    RecoilCorrectionSystem: 1,
+    DragAndDropSync: 1,
+    GripForceLimiter: 1,
+    ZeroFluctuationDrag: 2,
+
+    GripStabilizer: 2,
+    FastDragControl: 2,
+    TouchInputCorrection: 1,
+    DragSpeedLimiter: 2
+  }
 };
+if (this.config.advancedFeatures.precisionAimLock === 2) {
+  this.activatePreciseHeadLock();
+}
+
+if (this.config.advancedFeatures.quickScopeReactionTime) {
+  this.setQuickScopeResponse(80); // Giảm delay
+}
+
+if (this.config.advancedFeatures.recoilCorrectionSystem) {
+  this.correctRecoilOffset();
+}
 let previousHeadMap = new Map();
 
 function updateEnemyVelocities(enemies) {
