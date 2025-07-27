@@ -204,8 +204,9 @@ const aimLockConfig = {
     m1014: { yaw: 5.0, pitch: 5.0 },
     m590: { yaw: 0.54, pitch: 0.5 },
     mac10: { yaw: 0.5, pitch: 0.47 }
-  }
-advancedFeatures: {
+  }, // ✅ Thêm dấu phẩy ở đây
+
+  advancedFeatures: {
     QuickScopeReactionTime: 1,
     RealTimeMovementAimSync: 1,
     SmartTapFireOptimization: 1,
@@ -256,17 +257,7 @@ advancedFeatures: {
     DragSpeedLimiter: 2
   }
 };
-if (this.config.advancedFeatures.precisionAimLock === 2) {
-  this.activatePreciseHeadLock();
-}
 
-if (this.config.advancedFeatures.quickScopeReactionTime) {
-  this.setQuickScopeResponse(80); // Giảm delay
-}
-
-if (this.config.advancedFeatures.recoilCorrectionSystem) {
-  this.correctRecoilOffset();
-}
 let previousHeadMap = new Map();
 
 function updateEnemyVelocities(enemies) {
