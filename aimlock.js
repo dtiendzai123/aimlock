@@ -182,7 +182,7 @@ const GamePackages = {
 // == Config ==
 const aimLockConfig = {
   headOffset: new Vector3(-0.04089227, 0.00907892, 0.02748467),
-  snap_radius: 9999.0, // Bắt mục tiêu ở mọi khoảng cách và góc
+  snap_radius: 9999.0,
   recoil: {
     mp40: { x: 100, y: 100 },
     m1887: { x: 100, y: 100 },
@@ -254,7 +254,79 @@ const aimLockConfig = {
     FastDragControl: 2,
     TouchInputCorrection: 2,
     DragSpeedLimiter: 2
-  }
+  },
+
+  // --- Aimlock Cải Tiến và Tối Ưu Hóa Cao Nhất ---
+  UltraPrecisionAimLock: 5,
+  FastAutoAimControl: 5,
+  AdvancedAimAssist: 5,
+  AutoRecoilLock: 5,
+  SnapTargetAssist: 5,
+  DragSyncOptimizer: 5,
+  HeadshotLockPrecision: 5,
+  DragControlReset: 5,
+  PerfectGripSync: 5,
+  DynamicAimLock: 5,
+
+  // --- Fix Rung Mạnh và Tối Ưu Hóa Recoil ---
+  SuperRecoilFix: 5,
+  AntiShakeLock: 5,
+  SmoothRecoilStabilizer: 5,
+  VerticalRecoilPro: 5,
+  HorizontalDragSyncPro: 5,
+  GripRecoilSync: 5,
+  AutoDragFix: 5,
+  FastGripStabilizer: 5,
+  PrecisionDragSync: 5,
+  ZeroLateralRecoil: 5,
+
+  // --- Giảm Lố Lạc Đạn và Tăng Độ Chính Xác ---
+  BulletTrajectorySync: 5,
+  NoBulletDeviation: 5,
+  DragAccuracySync: 5,
+  RecoilSpreadFix: 5,
+  ShotSync: 5,
+  BulletLockdownPrecision: 5,
+  DragControlLimiter: 5,
+  ZeroImpactDeviation: 5,
+  ShotDragFix: 5,
+  BulletImpactSync: 5,
+
+  // --- Giảm Lag Máy và Fix Drop ---
+  UltraLowLatencyTouch: 5,
+  HighPerformanceFrameRate: 5,
+  ZeroFrameDropControl: 5,
+  RealTimeGripLatencyFix: 5,
+  FastTouchResponseSync: 5,
+  DragLatencyOptimized: 5,
+  RealTimeFrameFixer: 5,
+  InputLatencySync: 5,
+  GripSyncBooster: 5,
+  AdvancedFrameStabilizer: 5,
+
+  // --- Tối Ưu Gameplay Mượt Mà và Chính Xác Hơn ---
+  QuickGripSync: 5,
+  DragPrecisionFix: 5,
+  ZeroDragLateralMovement: 5,
+  GripForceOptimizer: 5,
+  RealTimeSyncGrip: 5,
+  QuickDragResetSync: 5,
+  DragSpeedPrecision: 5,
+  NoInputLagDrag: 5,
+  RecoilDragLimiter: 5,
+  TouchResponseMax: 5,
+
+  // --- Bổ Sung: Hệ thống kiểm soát Drag và Touch nâng cao ---
+  CustomizableAim_Grip_Level: 1,
+  AutoDrag_Reposition_System: 1,
+  RealTimeGrip_Pressure_Mod: 1,
+  AdvancedGrip_Balance: 1,
+  FingerMotion_Assist: 1,
+  DynamicTouch_Drift_Prevention: 1,
+  FastGrip_Reset_Toggle: 1,
+  PrecisionControl_Override: 1,
+  DragStability_Sync_System: 1,
+  QuickGrip_Reset_Options: 1
 };
 let previousHeadMap = new Map();
 
