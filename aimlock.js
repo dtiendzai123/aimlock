@@ -257,7 +257,6 @@ const aimLockConfig = {
     DragSpeedLimiter: 2
   }
 };
-
 let previousHeadMap = new Map();
 
 function updateEnemyVelocities(enemies) {
