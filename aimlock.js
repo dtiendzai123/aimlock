@@ -361,7 +361,9 @@ function getLocalPlayer() {
     x: 0, y: 1.7, z: 0,
     camera: {
       position: { x: 0, y: 1.7, z: 0 },
-      target: { x: -0.0456970781, y: -0.004478302, z: -0.0200432576 }
+      target: { x: -0.0456970781, y: -0.004478302, z: -0.0200432576 },
+ target_2: { x: -0.10926, y: -9.8E-05, z: 0.0 }
+    },
     },
     cameraYaw: 0
   };
