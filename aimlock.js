@@ -2,6 +2,7 @@ let body = $response.body;
 
 // Nếu là JSON thì parse thử
 try { body = JSON.parse($response.body); } catch (e) {}
+
 // == Vector3 Class ==
 class Vector3 {
   constructor(x = 0, y = 0, z = 0) { this.x = x; this.y = y; this.z = z; }
@@ -129,42 +130,33 @@ class AimLockEngine {
     }
   }
 
-smartSelect(localPlayer, enemies, fovDeg = 180) {
-  const offset = this.config?.headOffset || new Vector3(-0.04089227, 0.00907892, 0.02748467); // fallback nếu chưa cấu hình
-
-  let best = null;
-  let bestScore = Infinity;
-
-  for (const enemy of enemies) {
-    if (!enemy || enemy.health <= 0) continue;
-
-    // Tính vị trí bone head
-    const head = new Vector3(
-      enemy.x + offset.x,
-      enemy.y + offset.y,
-      enemy.z + offset.z
-    );
-
-    const dx = head.x - localPlayer.x;
-    const dy = head.y - localPlayer.y;
-    const dz = head.z - localPlayer.z;
-
-    const yaw = Math.atan2(dx, dz);
-    const yawDiff = Math.abs(yaw - localPlayer.cameraYaw);
-
-    if (yawDiff > fovDeg * (Math.PI / 180)) continue;
-
-    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-    const score = dist + yawDiff * 15;
-
-    if (score < bestScore) {
-      bestScore = score;
-      best = { ...enemy, head };
+  smartSelect(localPlayer, enemies, fovDeg = 180) {
+    const offset = this.config?.headOffset || new Vector3(-0.04089227, 0.00907892, 0.02748467);
+    let best = null;
+    let bestScore = Infinity;
+    for (const enemy of enemies) {
+      if (!enemy || enemy.health <= 0) continue;
+      const head = new Vector3(
+        enemy.x + offset.x,
+        enemy.y + offset.y,
+        enemy.z + offset.z
+      );
+      const dx = head.x - localPlayer.x;
+      const dy = head.y - localPlayer.y;
+      const dz = head.z - localPlayer.z;
+      const yaw = Math.atan2(dx, dz);
+      const yawDiff = Math.abs(yaw - localPlayer.cameraYaw);
+      if (yawDiff > fovDeg * (Math.PI / 180)) continue;
+      const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      const score = dist + yawDiff * 15;
+      if (score < bestScore) {
+        bestScore = score;
+        best = { ...enemy, head };
+      }
     }
+    return best;
   }
 
-  return best;
-}
   update(localPlayer, enemies, weapon) {
     const target = this.smartSelect(localPlayer, enemies);
     if (!target) return;
@@ -175,15 +167,7 @@ smartSelect(localPlayer, enemies, fovDeg = 180) {
     }
   }
 }
-this.config = {
-  headOffset: new Vector3(-0.04089227, 0.00907892, 0.02748467), // offset từ chân đến đầu, điều chỉnh tùy game
-  // các cấu hình khác...
-};
-const GamePackages = {
-  GamePackage1: "com.dts.freefireth",
-  GamePackage2: "com.dts.freefiremax"
-};
-// == Config ==
+
 const aimLockConfig = {
   headOffset: new Vector3(-0.04089227, 0.00907892, 0.02748467),
   snap_radius: 9999.0,
@@ -208,131 +192,11 @@ const aimLockConfig = {
     m1014: { yaw: 999, pitch: 999 },
     m590: { yaw: 999, pitch: 999 },
     mac10: { yaw: 999, pitch: 999 }
-  },
-  advancedFeatures: {
-    QuickScopeReactionTime: 2,
-    RealTimeMovementAimSync: 2,
-    SmartTapFireOptimization: 2,
-    LowDragFlickMode: 2,
-    FeatherTouchAimingSystem: 2,
-    AutoFocusTargetAssist: 2,
-    DynamicAimFlowControl: 2,
-    FastAimLockOnAssist: 2,
-    MinimalWeightAimTuning: 2,
-    QuickLightAimReset: 2,
-
-    PrecisionAimLock: 2,
-    VerticalAimFix: 2,
-    HorizontalAimFix: 2,
-    SmoothGripControl: 2,
-    DragStabilityBalancer: 2,
-    GripSensitivityTuning: 2,
-    AutoAimFix: 2,
-    DragSpeedAdjuster: 2,
-    DragControlLimiter: 2,
-    TouchGripResponse: 2,
-    DynamicGripReset: 2,
-
-    AutoCenteringFix: 2,
-    RealTimeAimLock: 2,
-    VerticalDragLimiter: 2,
-    HorizontalDragLimiter: 2,
-    HeadSnapLimiter: 2,
-    DragPrecisionTuner: 2,
-    GripCorrectionEnhancer: 2,
-    NoExcessiveGrip: 2,
-    BalancedDragControl: 2,
-    RealTimePrecisionSync: 2,
-
-    ZeroLateralMovement: 2,
-    ZeroVerticalDrift: 2,
-    NoAimSnapFixer: 2,
-    TouchSensitivityLock: 2,
-    DragReductionOptimizer: 2,
-    RecoilCorrectionSystem: 2,
-    DragAndDropSync: 2,
-    GripForceLimiter: 2,
-    ZeroFluctuationDrag: 2,
-
-    GripStabilizer: 2,
-    FastDragControl: 2,
-    TouchInputCorrection: 2,
-    DragSpeedLimiter: 2
-  },
-
-  // --- Aimlock Cải Tiến và Tối Ưu Hóa Cao Nhất ---
-  UltraPrecisionAimLock: 5,
-  FastAutoAimControl: 5,
-  AdvancedAimAssist: 5,
-  AutoRecoilLock: 5,
-  SnapTargetAssist: 5,
-  DragSyncOptimizer: 5,
-  HeadshotLockPrecision: 5,
-  DragControlReset: 5,
-  PerfectGripSync: 5,
-  DynamicAimLock: 5,
-
-  // --- Fix Rung Mạnh và Tối Ưu Hóa Recoil ---
-  SuperRecoilFix: 5,
-  AntiShakeLock: 5,
-  SmoothRecoilStabilizer: 5,
-  VerticalRecoilPro: 5,
-  HorizontalDragSyncPro: 5,
-  GripRecoilSync: 5,
-  AutoDragFix: 5,
-  FastGripStabilizer: 5,
-  PrecisionDragSync: 5,
-  ZeroLateralRecoil: 5,
-
-  // --- Giảm Lố Lạc Đạn và Tăng Độ Chính Xác ---
-  BulletTrajectorySync: 5,
-  NoBulletDeviation: 5,
-  DragAccuracySync: 5,
-  RecoilSpreadFix: 5,
-  ShotSync: 5,
-  BulletLockdownPrecision: 5,
-  DragControlLimiter: 5,
-  ZeroImpactDeviation: 5,
-  ShotDragFix: 5,
-  BulletImpactSync: 5,
-
-  // --- Giảm Lag Máy và Fix Drop ---
-  UltraLowLatencyTouch: 5,
-  HighPerformanceFrameRate: 5,
-  ZeroFrameDropControl: 5,
-  RealTimeGripLatencyFix: 5,
-  FastTouchResponseSync: 5,
-  DragLatencyOptimized: 5,
-  RealTimeFrameFixer: 5,
-  InputLatencySync: 5,
-  GripSyncBooster: 5,
-  AdvancedFrameStabilizer: 5,
-
-  // --- Tối Ưu Gameplay Mượt Mà và Chính Xác Hơn ---
-  QuickGripSync: 5,
-  DragPrecisionFix: 5,
-  ZeroDragLateralMovement: 5,
-  GripForceOptimizer: 5,
-  RealTimeSyncGrip: 5,
-  QuickDragResetSync: 5,
-  DragSpeedPrecision: 5,
-  NoInputLagDrag: 5,
-  RecoilDragLimiter: 5,
-  TouchResponseMax: 5,
-
-  // --- Bổ Sung: Hệ thống kiểm soát Drag và Touch nâng cao ---
-  CustomizableAim_Grip_Level: 1,
-  AutoDrag_Reposition_System: 1,
-  RealTimeGrip_Pressure_Mod: 1,
-  AdvancedGrip_Balance: 1,
-  FingerMotion_Assist: 1,
-  DynamicTouch_Drift_Prevention: 1,
-  FastGrip_Reset_Toggle: 1,
-  PrecisionControl_Override: 1,
-  DragStability_Sync_System: 1,
-  QuickGrip_Reset_Options: 1
+  }
 };
+
 let previousHeadMap = new Map();
+let aimLockEngine = null;
 
 function updateEnemyVelocities(enemies) {
   const deltaTime = 0.016;
@@ -351,7 +215,7 @@ function initAimLock() {
   setInterval(() => {
     const localPlayer = getLocalPlayer();
     const enemies = getEnemies();
-    updateEnemyVelocities(enemies); // 🆕 Cập nhật velocity mỗi frame
+    updateEnemyVelocities(enemies);
     const currentWeapon = getCurrentWeapon();
     if (aimLockEngine && localPlayer && enemies?.length > 0) {
       aimLockEngine.update(localPlayer, enemies, currentWeapon);
@@ -366,8 +230,7 @@ function getLocalPlayer() {
     camera: {
       position: { x: 0, y: 1.7, z: 0 },
       target: { x: -0.0456970781, y: -0.004478302, z: -0.0200432576 },
- target_2: { x: -0.10926, y: -9.8E-05, z: 0.0 }
-    },
+      target_2: { x: -0.10926, y: -9.8E-05, z: 0.0 }
     },
     cameraYaw: 0
   };
@@ -378,7 +241,7 @@ function getEnemies() {
     armorLevel: 2,
     x: 2.0, y: 1.7, z: 5.0,
     head: new Vector3(-0.0456970781, -0.004478302, -0.0200432576),
-    velocity: Vector3.zero(), // sẽ được cập nhật tự động
+    velocity: Vector3.zero(),
     bindpose: {
       e00: -1.34559613E-13, e01: 8.881784E-14, e02: -1.0, e03: 0.487912,
       e10: -2.84512817E-06, e11: -1.0, e12: 8.881784E-14, e13: -2.842171E-14,
@@ -388,10 +251,7 @@ function getEnemies() {
   }];
 }
 
-function getCurrentWeapon() {
-  // Bạn có thể cập nhật từ API game thật hoặc điều kiện người dùng
-  return "m1887";
-}
+function getCurrentWeapon() { return "m1887"; }
 function isFiring() { return false; }
 function simulateMouseDown() { console.log("🔥 Fire down"); }
 function simulateMouseUp() { console.log("🔥 Fire up"); }
